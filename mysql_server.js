@@ -3,7 +3,7 @@ const express = require('express');
 const formidable = require('express-formidable');
 
 var app = express();
-
+var PORT = 5000;
 app.use(formidable());
 // Creating connection
 let db_con = mysql.createConnection({
@@ -57,5 +57,5 @@ app.post('/get_total_count_by_name_and_year', (req, res) => {
 
 // Server setup
 app.listen(process.env.PORT || 5000, () => {
-  console.log('server listening on port 5000');
+  console.log(`server listening on port ${PORT}`);
 });
