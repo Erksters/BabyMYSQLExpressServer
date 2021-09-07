@@ -7,11 +7,12 @@ var PORT = 5000;
 app.use(formidable());
 // Creating connection
 let db_con = mysql.createConnection({
-  host: "localhost",
+  host: "babynamemysqlinstance.cantiip9asbt.us-east-2.rds.amazonaws.com",
   user: "root",
   password: "ROYGBIabc123.",
   database: "all_baby_names"
 });
+
 
 // Connect to MySQL server
 db_con.connect((err) => {
@@ -42,11 +43,11 @@ app.post('/get_total_count_by_name', (req, res) => {
 })
 
 app.post('/get_total_count_by_name_and_year', (req, res) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000/Show_total_count_by_name");
-  console.log("counting...")
+  res.header("Access-Control-Allow-Origin", "https://erksters.github.io");
+  console.log(`counting... ${req.fields.username} and ${req.fields.useryear}`)
   var query1 = `Select name, SUM(count) as total
                from baby_names 
-               where name ="${req.fields.username}"" and birth_year = "${req.fields.birth_year}"
+               where name = "${req.fields.username}" and birth_year = ${req.fields.useryear}
                group by name;
                `
   db_con.query(query1, (err, rows) => {
