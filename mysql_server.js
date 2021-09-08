@@ -83,6 +83,8 @@ app.post('/get_total_count_by_name', (req, res) => {
     user: "root",
     password: "ROYGBIabc123.",
     database: "all_baby_names",
+    timeout: 1000000000
+
   });
 
 
