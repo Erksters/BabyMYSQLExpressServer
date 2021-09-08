@@ -47,8 +47,6 @@ app.post('/get_total_count_by_name', (req, res) => {
 })
 
 app.post('/get_total_count_by_name_and_year', (req, res) => {
-
-  console.log(`counting... ${req.fields.username} and ${req.fields.useryear}`)
   var query2 = `Select name, SUM(count) as total
                from baby_names 
                where name = "${req.fields.username}" and birth_year = ${req.fields.useryear}
@@ -61,7 +59,31 @@ app.post('/get_total_count_by_name_and_year', (req, res) => {
       console.log("Database Connection Failed !!!", err);
     } else {
       console.log("connected to Database");
-      console.log("counting...", req.fields.username)
+      console.log(`counting... ${req.fields.username} and ${req.fields.useryear}`)
+      conn.query(query2, (err2, rows) => {
+        if (err2) { console.log(err2); res.send(JSON.stringify({ "Status": "500" })) }
+        else { res.send(rows); }  // <==== req.body will be a parsed JSON object
+      });
+      conn.release()
+    }
+  });
+})
+
+
+app.post('/get_total_count_by_name_and_state', (req, res) => {
+  var query2 = `Select name, SUM(count) as total
+               from baby_names 
+               where name = "${req.fields.username}" and state = '${req.fields.userstate}'
+               group by name;
+               `
+
+  // Connect to MySQL server
+  db_con.getConnection((err, conn) => {
+    if (err) {
+      console.log("Database Connection Failed !!!", err);
+    } else {
+      console.log("connected to Database");
+      console.log(`counting... ${req.fields.username} and ${req.fields.userstate}`)
       conn.query(query2, (err2, rows) => {
         if (err2) { console.log(err2); res.send(JSON.stringify({ "Status": "500" })) }
         else { res.send(rows); }  // <==== req.body will be a parsed JSON object
