@@ -23,7 +23,7 @@ db_con.connect((err) => {
   }
 });
 
-app.post('/', (req, res) => {
+app.get('/', (req, res) => {
   res.send(JSON.stringify({ "status": 200 })  // <==== req.body will be a parsed JSON object  
   )
 })
