@@ -4,7 +4,9 @@ const formidable = require('express-formidable');
 const cors = require('cors');
 
 var app = express();
-app.use(cors())
+app.use(cors({
+  origin: '*'
+}))
 app.use(formidable());
 // Creating connection
 let db_con = mysql.createConnection({
