@@ -47,7 +47,7 @@ app.post('/get_total_count_by_name', (req, res) => {
 })
 
 app.post('/get_total_count_by_name_and_year', cors(), (req, res) => {
-  // res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", 'https://erksters.github.io');
   console.log(`counting... ${req.fields.username} and ${req.fields.useryear}`)
   var query1 = `Select name, SUM(count) as total
                from baby_names 
