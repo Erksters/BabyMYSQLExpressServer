@@ -12,11 +12,11 @@ let db_con = mysql.createPool({
   host: "us-cdbr-east-04.cleardb.com",
   user: "b3455f3be5dddd",
   password: "4b73c4e6",
-  database: "heroku_5a8d83833f3a4d1",
+  database: "heroku_5a8d83833f3a4d1"
 });
 
 // Connect to MySQL server
-db_con.connect((err) => {
+db_con.getConnection((err) => {
   if (err) {
     console.log("Database Connection Failed !!!", err);
   } else {
