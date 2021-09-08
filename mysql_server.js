@@ -8,16 +8,13 @@ var app = express();
 app.use(formidable());
 app.use(cors())
 
-let db_con = mysql.createConnection({
+let db_con = mysql.createPool({
   host: "us-cdbr-east-04.cleardb.com",
   user: "b3455f3be5dddd",
   password: "4b73c4e6",
   database: "heroku_5a8d83833f3a4d1",
-  connectTimeout: 1000000,
-  timeout: 1000000
-
-
 });
+
 // Connect to MySQL server
 db_con.connect((err) => {
   if (err) {
