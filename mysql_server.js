@@ -8,9 +8,6 @@ var app = express();
 app.use(formidable());
 app.use(cors())
 
-
-
-
 let db_con = mysql.createConnection({
   host: "us-cdbr-east-04.cleardb.com",
   user: "b3455f3be5dddd",
@@ -34,7 +31,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/get_total_count_by_name', (req, res) => {
-  // res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", "*");
   console.log("counting...", req.fields.username)
   var query1 = `Select name, SUM(count) as total
                from baby_names 
