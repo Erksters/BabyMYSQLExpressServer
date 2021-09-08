@@ -35,7 +35,7 @@ app.post('/', (req, res) => {
 })
 
 app.post('/get_total_count_by_name', (req, res) => {
-  // res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", "*");
   console.log("counting...", req.fields.username)
   var query1 = `Select name, SUM(count) as total
                from baby_names 
