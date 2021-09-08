@@ -24,6 +24,7 @@ db_con.connect((err) => {
 });
 
 app.post('/', (req, res) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   res.send(JSON.stringify({ "status": 200 })  // <==== req.body will be a parsed JSON object  
   )
 })
