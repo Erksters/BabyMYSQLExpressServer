@@ -46,7 +46,7 @@ app.post('/get_total_count_by_name', (req, res) => {
   });
 })
 
-app.post('/get_total_count_by_name_and_year', (req, res) => {
+app.post('/get_total_count_by_name_and_year', cors(), (req, res) => {
   // res.header("Access-Control-Allow-Origin", "*");
   console.log(`counting... ${req.fields.username} and ${req.fields.useryear}`)
   var query1 = `Select name, SUM(count) as total
@@ -62,5 +62,5 @@ app.post('/get_total_count_by_name_and_year', (req, res) => {
 
 // Server setup
 app.listen(process.env.PORT || 3000, () => {
-  console.log(`server listening on port 3000}`);
+  console.log(`server listening on port 3000`);
 });
