@@ -1,11 +1,12 @@
 const mysql = require("mysql");
 const express = require('express');
 const formidable = require('express-formidable');
+const cors = require("cors");
 
 var app = express();
 
 app.use(formidable());
-
+app.use(cors())
 
 const extendTimeoutMiddleware = (req, res, next) => {
   const space = ' ';
@@ -68,7 +69,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/get_total_count_by_name', (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
   console.log("counting...", req.fields.username)
   var query1 = `Select name, SUM(count) as total
                from baby_names 
@@ -81,7 +82,8 @@ app.post('/get_total_count_by_name', (req, res) => {
     host: "babynamemysqlinstance.cantiip9asbt.us-east-2.rds.amazonaws.com",
     user: "root",
     password: "ROYGBIabc123.",
-    database: "all_baby_names"
+    database: "all_baby_names",
+    tim
   });
 
 
@@ -100,7 +102,7 @@ app.post('/get_total_count_by_name', (req, res) => {
 })
 
 app.post('/get_total_count_by_name_and_year', (req, res) => {
-  res.header("Access-Control-Allow-Origin", 'https://erksters.github.io/BabyFrontEnd/#/search_by_name_and_year');
+  // res.header("Access-Control-Allow-Origin", 'https://erksters.github.io/BabyFrontEnd/#/search_by_name_and_year');
   console.log(`counting... ${req.fields.username} and ${req.fields.useryear}`)
   var query1 = `Select name, SUM(count) as total
                from baby_names 
