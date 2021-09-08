@@ -13,6 +13,8 @@ let db_con = mysql.createConnection({
   user: "b3455f3be5dddd",
   password: "4b73c4e6",
   database: "heroku_5a8d83833f3a4d1",
+  connectTimeout: 1000000,
+  timeout: 1000000
 
 
 });
