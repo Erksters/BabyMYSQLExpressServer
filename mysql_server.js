@@ -1,9 +1,10 @@
 const mysql = require("mysql");
 const express = require('express');
 const formidable = require('express-formidable');
+const cors = require('cors');
 
 var app = express();
-var PORT = 5000;
+app.use(cors())
 app.use(formidable());
 // Creating connection
 let db_con = mysql.createConnection({
@@ -24,13 +25,13 @@ db_con.connect((err) => {
 });
 
 app.post('/', (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
   res.send(JSON.stringify({ "status": 200 })  // <==== req.body will be a parsed JSON object  
   )
 })
 
 app.post('/get_total_count_by_name', (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
   console.log("counting...", req.fields.username)
   var query1 = `Select name, SUM(count) as total
                from baby_names 
@@ -44,7 +45,7 @@ app.post('/get_total_count_by_name', (req, res) => {
 })
 
 app.post('/get_total_count_by_name_and_year', (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
   console.log(`counting... ${req.fields.username} and ${req.fields.useryear}`)
   var query1 = `Select name, SUM(count) as total
                from baby_names 
@@ -58,6 +59,6 @@ app.post('/get_total_count_by_name_and_year', (req, res) => {
 })
 
 // Server setup
-app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log(`server listening on port ${PORT}`);
 });
