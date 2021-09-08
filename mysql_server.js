@@ -62,5 +62,5 @@ app.post('/get_total_count_by_name_and_year', (req, res) => {
 
 // Server setup
 app.listen(process.env.PORT || 3000, () => {
-  console.log(`server listening on port ${PORT}`);
+  console.log(`server listening on port 3000}`);
 });
