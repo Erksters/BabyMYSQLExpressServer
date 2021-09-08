@@ -4,11 +4,9 @@ const formidable = require('express-formidable');
 const cors = require('cors');
 
 var app = express();
-
 app.use(cors({
   origin: '*'
 }))
-
 app.use(formidable());
 // Creating connection
 let db_con = mysql.createConnection({
@@ -35,7 +33,7 @@ app.post('/', (req, res) => {
 })
 
 app.post('/get_total_count_by_name', (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
   console.log("counting...", req.fields.username)
   var query1 = `Select name, SUM(count) as total
                from baby_names 
@@ -49,7 +47,7 @@ app.post('/get_total_count_by_name', (req, res) => {
 })
 
 app.post('/get_total_count_by_name_and_year', cors(), (req, res) => {
-  res.header("Access-Control-Allow-Origin", '*');
+  // res.header("Access-Control-Allow-Origin", '*');
   console.log(`counting... ${req.fields.username} and ${req.fields.useryear}`)
   var query1 = `Select name, SUM(count) as total
                from baby_names 
