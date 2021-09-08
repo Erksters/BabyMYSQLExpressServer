@@ -14,16 +14,8 @@ let db_con = mysql.createPool({
   password: "4b73c4e6",
   database: "heroku_5a8d83833f3a4d1",
   timeout: 1000000,
+  connectionLimit: 1000,
   connectTimeout: 1000000
-});
-
-// Connect to MySQL server
-db_con.getConnection((err) => {
-  if (err) {
-    console.log("Database Connection Failed !!!", err);
-  } else {
-    console.log("connected to Database");
-  }
 });
 
 app.get('/', (req, res) => {
@@ -32,41 +24,50 @@ app.get('/', (req, res) => {
 })
 
 app.post('/get_total_count_by_name', (req, res) => {
-
-  console.log("counting...", req.fields.username)
   var query1 = `Select name, SUM(count) as total
                from baby_names 
                where name ="${req.fields.username}"
                group by name;
                `
 
-
-  db_con.query(query1, (err, rows) => {
-    if (err) throw err;
-    res.send(rows);  // <==== req.body will be a parsed JSON object
+  // Connect to MySQL server
+  db_con.getConnection((err, conn) => {
+    if (err) {
+      console.log("Database Connection Failed !!!", err);
+    } else {
+      console.log("connected to Database");
+      console.log("counting...", req.fields.username)
+      conn.query(query1, (err2, rows) => {
+        if (err2) { console.log(err2); res.send(JSON.stringify({ "Status": "500" })) }
+        else { res.send(rows); }  // <==== req.body will be a parsed JSON object
+      });
+      conn.release()
+    }
   });
 })
 
 app.post('/get_total_count_by_name_and_year', (req, res) => {
 
   console.log(`counting... ${req.fields.username} and ${req.fields.useryear}`)
-  var query1 = `Select name, SUM(count) as total
+  var query2 = `Select name, SUM(count) as total
                from baby_names 
                where name = "${req.fields.username}" and birth_year = ${req.fields.useryear}
                group by name;
                `
 
   // Connect to MySQL server
-  db_con.connect((err) => {
+  db_con.getConnection((err, conn) => {
     if (err) {
       console.log("Database Connection Failed !!!", err);
     } else {
       console.log("connected to Database");
+      console.log("counting...", req.fields.username)
+      conn.query(query2, (err2, rows) => {
+        if (err2) { console.log(err2); res.send(JSON.stringify({ "Status": "500" })) }
+        else { res.send(rows); }  // <==== req.body will be a parsed JSON object
+      });
+      conn.release()
     }
-  });
-  db_con.query(query1, (err, rows) => {
-    if (err) throw err;
-    res.send(rows);  // <==== req.body will be a parsed JSON object
   });
 })
 
