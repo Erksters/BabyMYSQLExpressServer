@@ -95,10 +95,10 @@ app.post('/get_total_count_by_name_and_state', (req, res) => {
 
 
 app.post('/get_many_counts_by_year', (req, res) => {
-  var query3 = `SELECT birth_year, count(count)
+  var query3 = `SELECT birth_year as "key", count(count) as "value"
    FROM baby_names 
    where name = "${req.fields.username}"
-    group by birth_year order by birth_year asc;`
+  group by birth_year order by birth_year asc;`
 
   // Connect to MySQL server
   db_con.getConnection((err, conn) => {
