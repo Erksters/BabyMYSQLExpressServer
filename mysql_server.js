@@ -36,7 +36,7 @@ app.post('/get_total_count_by_name', (req, res) => {
       console.log("counting...", req.fields.username)
       conn.query(query1, (err2, rows) => {
         if (err2) { console.log(err2); res.send(JSON.stringify({ "Status": "500" })) }
-        else { res.send(rows); }  // <==== req.body will be a parsed JSON object
+        else { res.json(rows); }  // <==== req.body will be a parsed JSON object
       });
       conn.release()
     }
