@@ -9,10 +9,11 @@ app.use(formidable());
 app.use(cors())
 
 let db_con = mysql.createPool({
-  host: "us-cdbr-east-04.cleardb.com",
-  user: "b2e19339e9706b",
-  password: "6fc8247d",
-  database: "heroku_acae50346a1604b",
+  host: '127.0.0.1',
+  user: "root",
+  port: 3001,
+  database: "us_baby_names",
+
   timeout: 1000000,
   connectionLimit: 1000,
   connectTimeout: 1000000
@@ -24,10 +25,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/get_total_count_by_name', (req, res) => {
-  var query1 = `Select name, SUM(count) as total
-               from baby_names 
-               where name ="${req.fields.username}"
-               `
+  var query1 = `Select name, SUM(count) as total from names where name ="${req.fields.username}"`
 
   // Connect to MySQL server
   db_con.getConnection((err, conn) => {
@@ -47,7 +45,7 @@ app.post('/get_total_count_by_name', (req, res) => {
 
 app.post('/get_total_count_by_name_and_year', (req, res) => {
   var query2 = `Select name, SUM(count) as total
-               from baby_names 
+               names 
                where name = "${req.fields.username}" and birth_year = ${req.fields.useryear}
                group by name;
                `
@@ -71,7 +69,7 @@ app.post('/get_total_count_by_name_and_year', (req, res) => {
 
 app.post('/get_total_count_by_name_and_state', (req, res) => {
   var query2 = `Select name, SUM(count) as total
-               from baby_names 
+               names 
                where name = "${req.fields.username}" and state = '${req.fields.userstate}'
                group by name;
                `
@@ -95,7 +93,7 @@ app.post('/get_total_count_by_name_and_state', (req, res) => {
 
 app.post('/get_many_counts_by_year', (req, res) => {
   var query3 = `SELECT birth_year as "key", SUM(count) as "value"
-   FROM baby_names 
+   names 
    where name = "${req.fields.username}"
   group by birth_year order by birth_year asc;`
 
