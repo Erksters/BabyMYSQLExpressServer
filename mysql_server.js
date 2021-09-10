@@ -122,6 +122,6 @@ app.post('/get_many_counts_by_year', (req, res) => {
 
 
 // Server setup
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`server listening on port 3000`);
+app.listen(process.env.PORT || 443, () => {
+  console.log(`server listening on port 443`);
 });
