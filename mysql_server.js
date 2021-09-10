@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/get_total_count_by_name', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
   var query1 = `Select name, SUM(count) as total from names where name ="${req.fields.username}"`
 
   // Connect to MySQL server
@@ -44,6 +45,8 @@ app.post('/get_total_count_by_name', (req, res) => {
 })
 
 app.post('/get_total_count_by_name_and_year', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+
   var query2 = `Select name, SUM(count) as total
                from names 
                where name = "${req.fields.username}" and birth_year = ${req.fields.useryear}
@@ -68,6 +71,8 @@ app.post('/get_total_count_by_name_and_year', (req, res) => {
 
 
 app.post('/get_total_count_by_name_and_state', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+
   var query2 = `Select name, SUM(count) as total
                from names 
                where name = "${req.fields.username}" and state = '${req.fields.userstate}'
@@ -92,6 +97,8 @@ app.post('/get_total_count_by_name_and_state', (req, res) => {
 
 
 app.post('/get_many_counts_by_year', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+
   var query3 = `SELECT birth_year as "key", SUM(count) as "value"
    from names 
    where name = "${req.fields.username}"
